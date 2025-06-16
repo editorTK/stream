@@ -48,6 +48,12 @@ def on_pause(data):
     emit('pause', {'current_time': state['current_time']}, broadcast=True, include_self=False)
 
 
+@socketio.on('chat message')
+def on_chat_message(data):
+    msg = data.get('message', '')
+    emit('chat message', {'message': msg}, broadcast=True)
+
+
 if __name__ == '__main__':
     socketio.run(app, host='0.0.0.0', port=5000,
                  allow_unsafe_werkzeug=True)
