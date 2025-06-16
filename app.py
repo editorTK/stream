@@ -2,12 +2,14 @@ import eventlet
 eventlet.monkey_patch()
 
 import time
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
+
+PASSWORD = 'stream123'
 
 state = {
     'is_playing': False,
@@ -24,7 +26,37 @@ def get_current_time():
 
 @app.route('/')
 def index():
+    if not session.get('authorized'):
+        return redirect(url_for('login'))
     return render_template('index.html')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    attempts = session.get('attempts', 0)
+    first_time = session.get('first_attempt_time', time.time())
+    if time.time() - first_time > 600:
+        attempts = 0
+        first_time = time.time()
+    if request.method == 'POST':
+        if attempts >= 5 and time.time() - first_time <= 600:
+            error = 'Too many attempts. Try again later.'
+            return render_template('login.html', error=error)
+        password = request.form.get('password', '')
+        if password == PASSWORD:
+            session['authorized'] = True
+            session['attempts'] = 0
+            session['first_attempt_time'] = time.time()
+            return redirect(url_for('index'))
+        else:
+            attempts += 1
+            session['attempts'] = attempts
+            session['first_attempt_time'] = first_time
+            error = 'Incorrect password.'
+            return render_template('login.html', error=error)
+    session['attempts'] = attempts
+    session['first_attempt_time'] = first_time
+    return render_template('login.html')
 
 
 @socketio.on('connect')
