@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sync Video</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js" integrity="sha512-M5E+Zahq+TqlXfD82IoO/UoL1izxK50bE4YIn1Y6n9t9O+JhtnQPZ6WnncM3u5Q/I/DPGgXs3dQRtcmM1Q/i1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
 <div class="container">
-    <video id="videoPlayer" width="640" controls>
+    <video id="videoPlayer" controls>
         <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>

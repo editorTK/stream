@@ -5,25 +5,35 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
 }
 
 .container {
     text-align: center;
+    width: 100%;
+    max-width: 640px;
+    padding: 10px;
 }
 
 video {
     background-color: #000;
+    width: 100%;
+    height: auto;
 }
 
 .controls {
     margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .controls button {
-    margin: 0 5px;
+    margin: 5px;
     padding: 5px 10px;
+    flex: 1;
+    min-width: 80px;
 }
 
 .chat {
