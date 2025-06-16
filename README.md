@@ -10,10 +10,10 @@ Install dependencies (preferably in a virtualenv):
 pip install -r requirements.txt
 ```
 
-Run the server:
+Run the server with a WSGI server:
 
 ```bash
-python app.py
+gunicorn --worker-class eventlet -w 1 -b 0.0.0.0:5000 app:app
 ```
 
 Open `http://localhost:5000` in several browser tabs to test synchronization.
@@ -29,7 +29,7 @@ Para desplegar la aplicación en [Render](https://render.com), crea un nuevo
   ```
 - **Start Command**
   ```bash
-  python app.py
+  gunicorn --worker-class eventlet -w 1 -b 0.0.0.0:$PORT app:app
   ```
 
 Render instalará las dependencias desde `requirements.txt` y ejecutará el

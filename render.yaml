@@ -3,4 +3,4 @@ services:
     name: sync-video-stream
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: python app.py
+    startCommand: gunicorn --worker-class eventlet -w 1 -b 0.0.0.0:$PORT app:app
