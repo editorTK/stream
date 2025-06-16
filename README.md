@@ -16,6 +16,10 @@ Run the server with a WSGI server:
 gunicorn --worker-class eventlet -w 1 -b 0.0.0.0:5000 app:app
 ```
 
+This project uses `eventlet` for asynchronous support. To avoid initialization
+errors, `eventlet.monkey_patch()` is invoked at the top of `app.py` before any
+other imports.
+
 Open `http://localhost:5000` in several browser tabs to test synchronization.
 
 ## Deploy on Render
