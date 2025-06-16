@@ -1,6 +1,8 @@
 # Synchronized Video Stream
 
 Simple Flask application that lets multiple users watch the same video in sync.
+The interface is styled with [Tailwind CSS](https://tailwindcss.com) to provide
+a clean dark theme.
 
 ## Setup
 
